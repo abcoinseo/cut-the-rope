@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Make flex direction column for vertical placement */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000; /* Full black background */
+            font-family: sans-serif;
+            color: white; /* set default text color to white */
+        }
+        .loading-container {
+            text-align: center;
+        }
+        .coin-image {
+          width: 180px;  /* Increased coin size */
+          height: 180px; /* Increased coin size */
+          margin: 0 auto 20px;
+          background-image: url('coin.png');
+          background-size: contain;
+          background-repeat: no-repeat;
+          animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        .loading-bar-container {
+            width: 300px;
+            height: 20px;
+            background-color: #333; /* Dark grey background for progress container */
+            border-radius: 10px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        .loading-bar {
+            width: 0;
+            height: 100%;
+            background-color: #4caf50;
+            border-radius: 10px;
+            transition: width 0.3s linear;
+        }
+        .loading-text {
+            font-size: 1.2em;
+            color: #fff; /* Set loading text to white */
+        }
+
+        footer {
+            position: fixed; /* Fixed to bottom */
+            bottom: 20px; /* Distance from the bottom of the viewport */
+            width: 100%; /* Take full width */
+            text-align: center; /* Center text */
+            color: #888;
+        }
+        footer a {
+            color: #ddd; /* Lighter grey text for link */
+            text-decoration: none;
+        }
+         footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="coin-image"></div>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <div class="loading-text" id="loadingText">Loading... 0%</div>
+    </div>
+
+    <footer>
+        <a href="https://abstudiox.netlify.app/" target="_blank">Powered By AB Studio</a>
+    </footer>
+
+    <script>
+        const loadingBar = document.getElementById('loadingBar');
+        const loadingText = document.getElementById('loadingText');
+        let progress = 0;
+
+        function updateLoading() {
+            progress += 1;
+            loadingBar.style.width = progress + '%';
+            loadingText.textContent = `Loading... ${progress}%`;
+
+             if (progress >= 100) {
+                // Do not show the "Redirecting..." text
+                setTimeout(() => {
+                  window.location.href = 'home.html'; // Redirect after loading simulation
+                }, 1000); // Redirect after 1 second
+            } else {
+              setTimeout(updateLoading, 30);
+            }
+        }
+
+        updateLoading();
+    </script>
+</body>
+</html>
